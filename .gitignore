@@ -1,0 +1,12 @@
+# Dependencies
+/my-react-app/node_modules
+/my-app-backend/node_modules
+/my-react-app/build
+
+# Secrets
+.env
+*.env.local
+
+# OS files
+.DS_Store
+Thumbs.db
