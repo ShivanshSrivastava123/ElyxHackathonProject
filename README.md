@@ -4,13 +4,11 @@ The **Elyx Member Journey Visualizer** is a full-stack web application designed 
 
 This project was developed to solve the challenge of extracting actionable intelligence from lengthy, unstructured communication, enabling a clear, data-driven understanding of a member's health over time.
 
-
-
 ---
 
 ## Key Features
 
-* **🤖 AI-Powered PDF Processing**: Extracts member personas, KPIs, event timelines, and the rationale behind interventions from raw text using the Google Gemini API.
+* **🤖 AI-Powered PDF Processing**: Extracts member personas, KPIs, event timelines, and rationale from raw text using the Google Gemini API.
 * **👥 Multi-Member Database**: Supports multiple member profiles with data persistence in MongoDB, allowing users to switch between different member dashboards seamlessly.
 * **📊 Comprehensive Visualization Suite**:
     * **Dashboard**: Displays the member's persona, key health KPIs, and trend charts.
@@ -38,7 +36,7 @@ Follow these steps to get the project running on your local machine.
 
 * Node.js and npm installed
 * Git installed
-* A MongoDB database instance (local or via [MongoDB Atlas](https://www.mongodb.com/cloud/atlas))
+* A MongoDB Atlas account and a free cluster
 * A Google Gemini API Key from [Google AI Studio](https://aistudio.google.com/)
 
 ### 1. Clone the Repository
@@ -48,18 +46,26 @@ git clone [https://github.com/your-username/your-repo-name.git](https://github.c
 cd your-repo-name
 ```
 
-### 2. Backend Setup
+### 2. Setup MongoDB
+
+1.  Log in to your [MongoDB Atlas](https://cloud.mongodb.com/) account.
+2.  Create a new project and a new free-tier cluster.
+3.  Under your cluster's "Security" tab, go to **Network Access** and click **"Add IP Address"**. Choose **"Allow Access From Anywhere"** (for development purposes).
+4.  Go to **Database Access** and create a new database user with a secure password.
+5.  Navigate back to your cluster's main page and click the **"Connect"** button.
+6.  Select **"Drivers"**, and under "View connection string", copy the URI.
+7.  Replace `<password>` in the connection string with the password you created for your database user.
+
+### 3. Backend Setup
 
 1.  **Navigate to the backend folder**:
     ```bash
     cd my-app-backend
     ```
-
 2.  **Install backend dependencies**:
     ```bash
     npm install
     ```
-
 3.  **Create an environment file**:
     Create a file named `.env` in the `my-app-backend` directory and add your secret keys:
     ```env
@@ -67,25 +73,41 @@ cd your-repo-name
     GEMINI_API_KEY="your_google_gemini_api_key_here"
     ```
 
-### 3. Frontend Setup
+### 4. Frontend Setup
 
 1.  **Navigate to the frontend folder** from the root directory:
     ```bash
     cd my-react-app
     ```
-
 2.  **Install frontend dependencies**:
     ```bash
     npm install
     ```
 
-### 4. Running the Application
+---
 
-1.  **Navigate back to the root project folder**.
-2.  If you have configured the `concurrently` script in the root `package.json`, run both the frontend and backend servers with a single command:
-    ```bash
-    npm run dev
-    ```
-    Otherwise, you will need to open two separate terminals to run the backend (`npm run dev` in `my-app-backend`) and frontend (`npm start` in `my-react-app`).
+## Running the Application
 
-The application will be available at `http://localhost:3000`.
+You will need two separate terminals to run the application.
+
+### Terminal 1: Start the Backend Server
+
+```bash
+# Navigate to the backend directory
+cd path/to/my-app-backend
+
+# Start the server using nodemon
+nodemon server.js
+```
+You should see "Server is running..." and "MongoDB connected successfully."
+
+### Terminal 2: Start the Frontend App
+
+```bash
+# Navigate to the frontend directory
+cd path/to/my-react-app
+
+# Start the React development server
+npm start
+```
+Your browser will open to `http://localhost:3000`, and the application will be running.
